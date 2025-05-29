@@ -30,9 +30,27 @@ O projeto pode ser considerado em estágio de **desenvolvimento ativo / prova de
 *   **Inteligência Artificial:** DeepSeek API (especificamente o modelo `deepseek-reasoner`)
 *   **Variáveis de Ambiente:** dotenv
 
-## Como Executar o Servidor
+## Como Clonar a Aplicação
 
-Para executar o servidor localmente, siga estes passos:
+Siga os passos abaixo para clonar o repositório da aplicação.
+
+### 1. Clonar o Repositório
+
+Primeiro, clone o repositório para a sua máquina local utilizando o seguinte comando no terminal:
+```bash
+git clone <URL_DO_REPOSITORIO>
+```
+Substitua `<URL_DO_REPOSITORIO>` pela URL fornecida do repositório.
+
+Após a clonagem, navegue até a pasta do projeto:
+```bash
+cd <NOME_DA_PASTA_DO_PROJETO>
+```
+Substitua `<NOME_DA_PASTA_DO_PROJETO>` pelo nome da pasta que foi criada durante a clonagem.
+
+## Configurando e Executando o Backend (Servidor)
+
+O backend é responsável por processar as imagens e interagir com a API de IA. Para executar o servidor localmente, siga estes passos:
 
 1.  **Clone o repositório** (se ainda não o fez):
     ```bash
@@ -50,6 +68,7 @@ Para executar o servidor localmente, siga estes passos:
     ```bash
     npm install
     ```
+    Este comando instalará todas as dependências listadas no arquivo package.json do servidor, como Express, Sharp, Axios, etc.
 
 4.  **Configure as variáveis de ambiente**:
     *   Crie um arquivo `.env` dentro da pasta `server`.
@@ -68,3 +87,28 @@ Para executar o servidor localmente, siga estes passos:
 
 6.  O servidor estará rodando em `http://localhost:PORT` (por exemplo, `http://localhost:5555` se a porta não for alterada).
     Você pode verificar o status do servidor acessando a rota de saúde: `http://localhost:PORT/api/health`.
+
+## Configurando e Executando o Frontend (Cliente)
+
+O frontend é a interface com a qual o usuário interage para enviar imagens e ver os resultados.
+
+1.  **Navegue até a pasta do cliente**:
+    A partir da raiz do projeto (certifique-se de voltar para a raiz do projeto se você ainda estiver no diretório `server`, usando `cd ..`), entre no diretório `client`:
+    ```bash
+    cd client
+    ```
+
+2.  **Instale as dependências do cliente**:
+    Este comando instalará todas as dependências do frontend, como React e outras bibliotecas necessárias, listadas no `package.json` do cliente.
+    ```bash
+    npm install
+    ```
+
+3.  **Inicie a aplicação de desenvolvimento do cliente**:
+    Após a instalação das dependências, inicie o servidor de desenvolvimento do React:
+    ```bash
+    npm start
+    ```
+
+4.  Este comando iniciará o servidor de desenvolvimento do React. Geralmente, a aplicação abrirá automaticamente em seu navegador padrão no endereço `http://localhost:3000`. Se não abrir automaticamente, você pode acessá-la manualmente digitando `http://localhost:3000` na barra de endereços do seu navegador. O frontend se comunicará com o backend (que deve estar em execução conforme anteriormente explicado) para enviar imagens e receber dados.
+
