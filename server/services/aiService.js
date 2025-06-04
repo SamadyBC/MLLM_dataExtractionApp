@@ -106,21 +106,17 @@ exports.extractNutritionalData = async (imagePath) => {
 
     console.log("Enviando requisição para a API da OpenAI...");
 
-    const response = await axios.post(
-      `${baseUrl1}`,
-      alternativeRequestData2,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-        },
-      }
-    );
+    const response = await axios.post(`${baseUrl1}`, alternativeRequestData2, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+      },
+    });
 
     console.log("Resposta recebida da API da OpenAI");
 
     // const reasoning_content =
-      // response.data.choices[0].message.reasoning_content;
+    // response.data.choices[0].message.reasoning_content;
     // const content = response.data.choices[0].message.content;
 
     console.log(`reasoning_content: ${reasoning_content}`);
