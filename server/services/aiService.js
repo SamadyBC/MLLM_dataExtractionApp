@@ -26,6 +26,7 @@ exports.extractNutritionalData = async (imagePath) => {
     const base64Image = imageBuffer.toString("base64");
     console.log(`Tamanho da string base64: ${base64Image.length} caracteres`);
     const baseUrl = process.env.DEEPSEEK_API_URL;
+    const baseUrl1 = process.env.OPENAI_API_URL;
 
     console.log("Preparando requisição para DeepSeek R1");
     console.log(`URL da API: ${process.env.DEEPSEEK_API_URL}`);
@@ -88,10 +89,25 @@ exports.extractNutritionalData = async (imagePath) => {
       max_tokens: 800,
     };
 
-    console.log("Enviando requisição para a API DeepSeek R1...");
+    // console.log("Enviando requisição para a API DeepSeek R1...");
+
+    // const response = await axios.post(
+    //   `${baseUrl}/v1/chat/completions`,
+    //   alternativeRequestData2,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+    //     },
+    //   }
+    // );
+
+    // console.log("Resposta recebida da API DeepSeek R1");
+
+    console.log("Enviando requisição para a API da OpenAI...");
 
     const response = await axios.post(
-      `${baseUrl}/v1/chat/completions`,
+      `${baseUrl1}`,
       alternativeRequestData2,
       {
         headers: {
@@ -101,11 +117,11 @@ exports.extractNutritionalData = async (imagePath) => {
       }
     );
 
-    console.log("Resposta recebida da API DeepSeek R1");
+    console.log("Resposta recebida da API da OpenAI");
 
-    const reasoning_content =
-      response.data.choices[0].message.reasoning_content;
-    const content = response.data.choices[0].message.content;
+    // const reasoning_content =
+      // response.data.choices[0].message.reasoning_content;
+    // const content = response.data.choices[0].message.content;
 
     console.log(`reasoning_content: ${reasoning_content}`);
     console.log(`content: ${content}`);
