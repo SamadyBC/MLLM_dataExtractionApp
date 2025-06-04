@@ -65,11 +65,34 @@ exports.extractNutritionalData = async (imagePath) => {
       max_tokens: 800,
     };
 
+    const alternativeRequestData2 = {
+      model: "deepseek-reasoner",
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: "Extraia os dados nutricionais das imagens de uma tabela nutricional que está em anexo",
+            },
+            {
+              type: "image_url",
+              image_url: {
+                // Aqui você deve fornecer uma URL pública acessível da imagem
+                url: "https://gepea.com.br/wp-content/uploads/2022/08/tabela.jpg", // Substitua por uma URL real da sua imagem
+              },
+            },
+          ],
+        },
+      ],
+      max_tokens: 800,
+    };
+
     console.log("Enviando requisição para a API DeepSeek R1...");
 
     const response = await axios.post(
       `${baseUrl}/v1/chat/completions`,
-      alternativeRequestData,
+      alternativeRequestData2,
       {
         headers: {
           "Content-Type": "application/json",
