@@ -119,8 +119,8 @@ exports.extractNutritionalData = async (imagePath) => {
     // response.data.choices[0].message.reasoning_content;
     // const content = response.data.choices[0].message.content;
 
-    console.log(`reasoning_content: ${reasoning_content}`);
-    console.log(`content: ${content}`);
+    // console.log(`reasoning_content: ${reasoning_content}`);
+    // console.log(`content: ${content}`);
 
     // Extrair e estruturar os dados da resposta
     const nutritionalData = {
