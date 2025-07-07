@@ -1,19 +1,23 @@
 const axios = require("axios");
 
-exports.triggerAutomationWorkflow = async (nutritionData) => {
+exports.triggerAutomationWorkflow = async (nutritionalData) => {
   try {
     // Prepare webhook payload
-    const webhookUrl = "https://your-automation-platform.com/webhook-endpoint";
+    const webhookUrl =
+      "http://127.0.0.1:7860/api/v1/webhook/773aff9e-1942-4b40-adf4-12d9c2296fcf";
     const payload = {
-      aiResult: nutritionData,
-      timestamp: new Date().toISOString(),
+      aiResult: nutritionalData,
+      timestamp: new Date().toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+      }),
     };
-
+    console.log("Payload: ", payload);
     // Trigger webhook
     const response = await axios.post(webhookUrl, payload);
     console.log("Webhook triggered successfully:", response.data);
+    content = response.data;
 
-    return response.data;
+    return content;
   } catch (error) {
     console.error("Error triggering automation workflow:", error);
     throw error;

@@ -31,8 +31,6 @@ exports.processImage = async (req, res) => {
 
     // Envio para API de IA para extração de dados nutricionais
     const nutritionalData = await extractNutritionalData(outputPath);
-    const flowReached = await triggerAutomationWorkflow(nutritionalData);
-    console.log("Flow reached:", flowReached);
 
     res.json({
       success: true,

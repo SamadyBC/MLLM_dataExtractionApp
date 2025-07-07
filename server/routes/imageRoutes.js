@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const imageController = require("../controllers/imageController");
+const workFlowController = require("../controllers/workFlowController");
 const axios = require("axios");
 
 const router = express.Router();
@@ -145,7 +146,7 @@ router.post("/test-api", async (req, res) => {
 
 router.get("/health", (req, res) => {
   try {
-    content = {
+    const content = {
       success: true,
       informacoes_nutricionais: {
         porcao_por_embalagem: 5,
@@ -191,7 +192,11 @@ router.get("/health", (req, res) => {
       },
     };
 
-    res.json({ content });
+    const nutritionalData = {
+      raw: content,
+    };
+
+    res.json({ nutritionalData });
   } catch (error) {
     console.error("Erro ao verificar a saúde do servidor:", error);
     res.status(500).json({

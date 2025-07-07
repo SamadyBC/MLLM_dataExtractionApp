@@ -11,6 +11,7 @@ const ImageUploader = () => {
   const [error, setError] = useState(null);
   // necessito de um estado posterior a recepcao da resposta da API, de modo que eu possa limpar o resultado anterior e reiniciar meu processo de upload e analise de imagem
   const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [workflowTriggered, setWorkflowTriggered] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
@@ -45,22 +46,23 @@ const ImageUploader = () => {
     formData.append("image", file);
 
     try {
-      // const response = await axios.post(
-      //   "http://localhost:5000/api/images/upload",
-      //   formData,
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   }
-      // );
+      //const response = await axios.post(
+      //  "http://localhost:5000/api/images/upload",
+      //  formData,
+      //  {
+      //    headers: {
+      //      "Content-Type": "multipart/form-data",
+      //    },
+      //  }
+      //);
 
       const response = await axios.get(
         "http://localhost:5000/api/images/health"
       );
 
-      //setResults(response.data.nutritionalData);
-      setResults(response.data.content);
+      console.log("Resposta da API:", response.data.nutritionalData);
+      setResults(response.data.nutritionalData);
+      //setResults(response.data.content);
       setAnalysisComplete(true);
     } catch (err) {
       console.error("Erro ao enviar imagem:", err);
@@ -96,6 +98,7 @@ const ImageUploader = () => {
         }
       );
       console.log("Workflow triggered successfully:", response.data);
+      setWorkflowTriggered(true);
     } catch (error) {
       console.error("Erro ao enviar dados para o workflow:", error);
       setError(
@@ -177,19 +180,25 @@ const ImageUploader = () => {
             <h4>Análise Completa:</h4>
             <p>{JSON.stringify(results, null, 2)}</p>
             {/*{results.raw}*/}
+            {/*{JSON.stringify(results, null, 2)}*/}
           </div>
 
-          {analysisComplete && (
-            <button onClick={handleReset} className="reset-button">
-              Nova Análise
-            </button>
-          )}
+          <div className="after-buttons">
+            {analysisComplete && (
+              <button onClick={handleReset} className="reset-button">
+                Nova Análise
+              </button>
+            )}
 
-          {analysisComplete && (
-            <button onClick={handleWorkflow} className="workflow-button">
-              Enviar para Automação
-            </button>
-          )}
+            {analysisComplete && (
+              <button
+                onClick={() => handleWorkflow(results.raw)}
+                className="workflow-button"
+              >
+                Enviar para Automação
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>

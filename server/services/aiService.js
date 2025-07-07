@@ -48,7 +48,7 @@ exports.extractNutritionalData = async (imagePath) => {
           content: [
             {
               type: "text",
-              text: "Extraia os dados nutricionais da imagem de uma tabela nutricional que esta em anexo. Por favor, forneça os dados nutricionais em formato JSON bem estruturado e inclua todos os campos relevantes. Seja direto nas respostas, de modo que menos tokens de output sejam gerados. Ou seja, retorne apenas os dados nutricionais em JSON",
+              text: "Extraia os dados nutricionais da imagem de uma tabela nutricional que esta em anexo. Por favor, forneça os dados nutricionais em formato JSON bem estruturado e inclua todos os campos relevantes, incluindo os valores diarios. Seja direto nas respostas, de modo que menos tokens de output sejam gerados. Ou seja, retorne apenas os dados nutricionais em JSON iniciando com { e terminando com }.",
             },
             {
               type: "image_url",
@@ -104,7 +104,6 @@ exports.extractNutritionalData = async (imagePath) => {
     const content = response.data.choices[0].message.content;
 
     // console.log(`reasoning_content: ${reasoning_content}`);
-    console.log(`content: ${content}`);
 
     // Extrair e estruturar os dados da resposta
     const nutritionalData = {
@@ -113,6 +112,8 @@ exports.extractNutritionalData = async (imagePath) => {
         response.data.choices[0].message.content
       ),
     };
+
+    console.log("Conteudo: ", nutritionalData.raw);
 
     return nutritionalData;
   } catch (error) {
