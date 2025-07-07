@@ -37,7 +37,7 @@ exports.extractNutritionalData = async (imagePath) => {
     const baseUrl1 = process.env.OPENAI_API_URL;
 
     console.log("Preparando requisição para a GPT4.1 nano");
-    console.log(`URL da API: ${process.env.DEEPSEEK_API_URL}`);
+    console.log(`URL da API: ${process.env.OPENAI_API_URL}`);
 
     // Configuração para a API DeepSeek R1
     const requestDataBase64 = {
@@ -48,7 +48,7 @@ exports.extractNutritionalData = async (imagePath) => {
           content: [
             {
               type: "text",
-              text: "Extraia os dados nutricionais da imagem de uma tabela nutricional que esta em anexo. Por favor, forneça os dados nutricionais em formato JSON bem estruturado e inclua todos os campos relevantes.",
+              text: "Extraia os dados nutricionais da imagem de uma tabela nutricional que esta em anexo. Por favor, forneça os dados nutricionais em formato JSON bem estruturado e inclua todos os campos relevantes. Seja direto nas respostas, de modo que menos tokens de output sejam gerados. Ou seja, retorne apenas os dados nutricionais em JSON",
             },
             {
               type: "image_url",

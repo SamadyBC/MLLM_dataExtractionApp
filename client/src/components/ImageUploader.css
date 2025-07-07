@@ -123,3 +123,24 @@
   margin-top: 0;
   color: #555;
 }
+
+.reset-button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    margin-top: 10px;;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .reset-button:hover {
+    background-color: #0055aa;
+  }
+  
+  .reset-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
