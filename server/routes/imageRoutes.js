@@ -146,57 +146,57 @@ router.post("/test-api", async (req, res) => {
 
 router.get("/health", (req, res) => {
   try {
-    const content = {
-      success: true,
-      informacoes_nutricionais: {
-        porcao_por_embalagem: 5,
-        porcao: "200 ml (1 copo)",
-        valores_por_100ml: {
-          valor_energetico_kcal: 58,
-          carboidratos_g: 9.2,
-          acucares_totais_g: 4.6,
-          acucares_adicionais_g: 0,
-          proteinas_g: 3.1,
-          gorduras_totais_g: 3,
-          gorduras_sat_g: 1.9,
-          gorduras_trans_g: 0,
-          fibras_alimentares_g: 0,
-          sodio_mg: 61,
-          calcio_mg: 120,
-        },
-        valores_por_200ml: {
-          valor_energetico_kcal: 116,
-          carboidratos_g: 9.2,
-          acucares_totais_g: 9.2,
-          acucares_adicionais_g: 0,
-          proteinas_g: 6.2,
-          gorduras_totais_g: 6,
-          gorduras_sat_g: 3.8,
-          gorduras_trans_g: 0,
-          fibras_alimentares_g: 0,
-          sodio_mg: 122,
-          calcio_mg: 240,
-        },
-        percentual_valores_diarios: {
-          valor_energetico: 6,
-          carboidratos: null,
-          acucares_totais: null,
-          proteinas: 12,
-          gorduras_totais: null,
-          gorduras_sat: 19,
-          gorduras_trans: null,
-          fibras_alimentares: null,
-          sodio: 0,
-          calcio: 24,
-        },
+    const content = JSON.stringify({
+      porcao_por_embalagem: 7,
+      porcao: "200 ml (1 copo)",
+      valores_por_100ml: {
+        valor_energetico_kcal: 58,
+        carboidratos_g: 9.2,
+        acucares_totais_g: 4.6,
+        acucares_adicionais_g: 0,
+        proteinas_g: 3.1,
+        gorduras_totais_g: 3,
+        gorduras_sat_g: 1.9,
+        gorduras_trans_g: 0,
+        fibras_alimentares_g: 0,
+        sodio_mg: 61,
+        calcio_mg: 120,
       },
-    };
+      valores_por_200ml: {
+        valor_energetico_kcal: 116,
+        carboidratos_g: 9.2,
+        acucares_totais_g: 9.2,
+        acucares_adicionais_g: 0,
+        proteinas_g: 6.2,
+        gorduras_totais_g: 6,
+        gorduras_sat_g: 3.8,
+        gorduras_trans_g: 0,
+        fibras_alimentares_g: 0,
+        sodio_mg: 122,
+        calcio_mg: 240,
+      },
+      percentual_valores_diarios: {
+        valor_energetico: 6,
+        carboidratos: null,
+        acucares_totais: null,
+        proteinas: 12,
+        gorduras_totais: null,
+        gorduras_sat: 19,
+        gorduras_trans: null,
+        fibras_alimentares: null,
+        sodio: 0,
+        calcio: 24,
+      },
+    });
 
     const nutritionalData = {
       raw: content,
     };
 
-    res.json({ nutritionalData });
+    res.json({
+      success: true,
+      nutritionalData,
+    });
   } catch (error) {
     console.error("Erro ao verificar a saúde do servidor:", error);
     res.status(500).json({

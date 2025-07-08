@@ -6,7 +6,7 @@ exports.triggerAutomationWorkflow = async (nutritionalData) => {
     const webhookUrl =
       "http://127.0.0.1:7860/api/v1/webhook/773aff9e-1942-4b40-adf4-12d9c2296fcf";
     const payload = {
-      aiResult: nutritionalData,
+      nutritionalData: nutritionalData,
       timestamp: new Date().toLocaleString("pt-BR", {
         timeZone: "America/Sao_Paulo",
       }),

@@ -46,19 +46,19 @@ const ImageUploader = () => {
     formData.append("image", file);
 
     try {
-      //const response = await axios.post(
-      //  "http://localhost:5000/api/images/upload",
-      //  formData,
-      //  {
-      //    headers: {
-      //      "Content-Type": "multipart/form-data",
-      //    },
-      //  }
-      //);
-
-      const response = await axios.get(
-        "http://localhost:5000/api/images/health"
+      const response = await axios.post(
+        "http://localhost:5000/api/images/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
+
+      //const response = await axios.get(
+      //  "http://localhost:5000/api/images/health"
+      //);
 
       console.log("Resposta da API:", response.data.nutritionalData);
       setResults(response.data.nutritionalData);
@@ -178,7 +178,7 @@ const ImageUploader = () => {
 
           <div className="raw-data">
             <h4>Análise Completa:</h4>
-            <p>{JSON.stringify(results, null, 2)}</p>
+            <p>{results.raw}</p>
             {/*{results.raw}*/}
             {/*{JSON.stringify(results, null, 2)}*/}
           </div>
@@ -198,6 +198,7 @@ const ImageUploader = () => {
                 Enviar para Automação
               </button>
             )}
+            {/*{results.raw.informacoes_nutricionais}*/}
           </div>
         </div>
       )}
