@@ -8,7 +8,9 @@ const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 } else {
+  fs.rmdirSync(uploadsDir, { recursive: true });
   console.log("Pasta de uploads já existe.");
+  fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
 const app = express();

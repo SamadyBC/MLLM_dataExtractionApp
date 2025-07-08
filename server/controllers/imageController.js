@@ -3,6 +3,7 @@ const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
 const { extractNutritionalData } = require("../services/aiService");
+const { triggerAutomationWorkflow } = require("../services/flowService");
 
 exports.processImage = async (req, res) => {
   console.log("Controlador processImage chamado");

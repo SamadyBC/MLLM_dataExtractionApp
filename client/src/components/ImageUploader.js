@@ -9,6 +9,9 @@ const ImageUploader = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+  // necessito de um estado posterior a recepcao da resposta da API, de modo que eu possa limpar o resultado anterior e reiniciar meu processo de upload e analise de imagem
+  const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [workflowTriggered, setWorkflowTriggered] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
@@ -21,6 +24,7 @@ const ImageUploader = () => {
     // Limpar resultados anteriores
     setResults(null);
     setError(null);
+    setAnalysisComplete(false);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -52,12 +56,54 @@ const ImageUploader = () => {
         }
       );
 
+      //const response = await axios.get(
+      //  "http://localhost:5000/api/images/health"
+      //);
+
+      console.log("Resposta da API:", response.data.nutritionalData);
       setResults(response.data.nutritionalData);
+      //setResults(response.data.content);
+      setAnalysisComplete(true);
     } catch (err) {
       console.error("Erro ao enviar imagem:", err);
       setError(err.response?.data?.message || "Erro ao processar a imagem");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleReset = () => {
+    // Revogar a URL do objeto para evitar vazamento de memória
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
+
+    // Resetar todos os estados para seus valores iniciais
+    setFile(null);
+    setPreview(null);
+    setResults(null);
+    setError(null);
+    setAnalysisComplete(false);
+  };
+
+  const handleWorkflow = async (responseData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/images/trigger-workflow",
+        responseData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Workflow triggered successfully:", response.data);
+      setWorkflowTriggered(true);
+    } catch (error) {
+      console.error("Erro ao enviar dados para o workflow:", error);
+      setError(
+        error.response?.data?.message || "Erro ao enviar dados para o workflow"
+      );
     }
   };
 
@@ -133,6 +179,26 @@ const ImageUploader = () => {
           <div className="raw-data">
             <h4>Análise Completa:</h4>
             <p>{results.raw}</p>
+            {/*{results.raw}*/}
+            {/*{JSON.stringify(results, null, 2)}*/}
+          </div>
+
+          <div className="after-buttons">
+            {analysisComplete && (
+              <button onClick={handleReset} className="reset-button">
+                Nova Análise
+              </button>
+            )}
+
+            {analysisComplete && (
+              <button
+                onClick={() => handleWorkflow(results.raw)}
+                className="workflow-button"
+              >
+                Enviar para Automação
+              </button>
+            )}
+            {/*{results.raw.informacoes_nutricionais}*/}
           </div>
         </div>
       )}
