@@ -30,47 +30,47 @@ O projeto pode ser considerado em estágio de **desenvolvimento ativo / prova de
 *   **Inteligência Artificial:** DeepSeek API (especificamente o modelo `deepseek-reasoner`)
 *   **Variáveis de Ambiente:** dotenv
 
-## Development
+## Desenvolvimento
 
-This project was developed as a web application to extract nutritional information from food labels or nutritional tables using AI. The development process focused on creating a robust backend to handle image processing and AI integration, and a user-friendly frontend for image uploads and results display.
+Este projeto foi desenvolvido como uma aplicação web para extrair informações nutricionais de rótulos de alimentos ou tabelas nutricionais usando IA. O processo de desenvolvimento focou na criação de um backend robusto para lidar com o processamento de imagens e integração com IA, e um frontend amigável para upload de imagens e exibição dos resultados.
 
-The application follows a client-server architecture:
+A aplicação segue uma arquitetura cliente-servidor:
 
-*   **Backend:** Developed with Node.js and Express.js, the backend is responsible for receiving image uploads, processing them (resizing and compressing using the Sharp library), and interacting with the DeepSeek AI API (using Axios for API calls) to extract nutritional data. Environment variables are managed using `dotenv`.
-*   **Frontend:** Built with React (bootstrapped with Create React App), the frontend provides an interface for users to upload images and view the extracted nutritional information. Key components include `App.js` for the main application structure and `ImageUploader.js` for handling image uploads and displaying results.
+*   **Backend:** Desenvolvido com Node.js e Express.js, o backend é responsável por receber uploads de imagens, processá-las (redimensionando e comprimindo usando a biblioteca Sharp), e interagir com a API de IA DeepSeek (usando Axios para chamadas à API) para extrair dados nutricionais. As variáveis de ambiente são gerenciadas com `dotenv`.
+*   **Frontend:** Construído com React (inicializado com Create React App), o frontend fornece uma interface para os usuários fazerem upload de imagens e visualizarem as informações nutricionais extraídas. Componentes chave incluem `App.js` para a estrutura principal da aplicação e `ImageUploader.js` para lidar com uploads de imagens e exibição de resultados.
 
-The project is currently in an active development/proof-of-concept stage. The core backend functionality for image processing and AI-based data extraction is implemented.
+O projeto está atualmente em estágio de desenvolvimento ativo/prova de conceito. A funcionalidade principal do backend para processamento de imagens e extração de dados baseada em IA está implementada.
 
-### Implementation Details
+### Detalhes da Implementação
 
-The core functionality revolves around processing user-uploaded images of nutritional labels and extracting data using an AI model.
+A funcionalidade principal gira em torno do processamento de imagens de rótulos nutricionais enviadas pelo usuário e da extração de dados usando um modelo de IA.
 
-*   **Image Processing:**
-    *   When an image is uploaded via the frontend, it is sent to the backend.
-    *   The backend utilizes the `Sharp` library to:
-        *   Resize the image to a maximum width of 1024 pixels to optimize it for the AI analysis and reduce processing time.
-        *   Compress the image to further reduce file size without significant loss of quality relevant for text extraction.
-    *   Processed images are temporarily stored in the `server/uploads/` directory.
+*   **Processamento de Imagem:**
+    *   Quando uma imagem é enviada através do frontend, ela é encaminhada para o backend.
+    *   O backend utiliza a biblioteca `Sharp` para:
+        *   Redimensionar a imagem para uma largura máxima de 1024 pixels para otimizá-la para a análise da IA e reduzir o tempo de processamento.
+        *   Comprimir a imagem para reduzir ainda mais o tamanho do arquivo sem perda significativa de qualidade relevante para a extração de texto.
+    *   As imagens processadas são armazenadas temporariamente no diretório `server/uploads/`.
 
-*   **AI Data Extraction:**
-    *   The processed image is then sent to the DeepSeek AI API.
-    *   The specific model used is `deepseek-reasoner`.
-    *   The backend constructs a prompt instructing the AI to analyze the image and extract all nutritional information present, aiming for a comprehensive textual output of the label's contents.
+*   **Extração de Dados por IA:**
+    *   A imagem processada é então enviada para a API de IA DeepSeek.
+    *   O modelo específico utilizado é o `deepseek-reasoner`.
+    *   O backend constrói um prompt instruindo a IA a analisar a imagem e extrair todas as informações nutricionais presentes, visando uma saída textual abrangente do conteúdo do rótulo.
 
-*   **API Endpoints:**
-    *   **Backend (Server):**
-        *   `POST /api/images/upload`: Receives the image from the client, processes it, sends it to the DeepSeek API, and returns the extracted text.
-        *   `GET /api/health`: A health check endpoint to verify that the server is running correctly.
-    *   **Frontend (Client):**
-        *   The client makes a `POST` request to `http://localhost:5555/api/images/upload` (or the configured backend URL) to send the image for analysis. The port `5555` is the default for the backend server.
+*   **Endpoints da API:**
+    *   **Backend (Servidor):**
+        *   `POST /api/images/upload`: Recebe a imagem do cliente, processa-a, envia-a para a API DeepSeek e retorna o texto extraído.
+        *   `GET /api/health`: Um endpoint de verificação de saúde para confirmar que o servidor está funcionando corretamente.
+    *   **Frontend (Cliente):**
+        *   O cliente faz uma requisição `POST` para `http://localhost:5555/api/images/upload` (ou a URL do backend configurada) para enviar a imagem para análise. A porta `5555` é o padrão para o servidor backend.
 
-*   **Frontend Interaction:**
-    *   The `ImageUploader.js` component in the React frontend handles:
-        *   Image selection (drag-and-drop or file dialog).
-        *   Displaying an image preview.
-        *   Sending the image to the backend API endpoint.
-        *   Displaying the raw textual nutritional data returned by the backend or an error message if the process fails.
-        *   A loading indicator is shown during the analysis process.
+*   **Interação Frontend:**
+    *   O componente `ImageUploader.js` no frontend React lida com:
+        *   Seleção de imagem (arrastar e soltar ou caixa de diálogo de arquivo).
+        *   Exibição de uma pré-visualização da imagem.
+        *   Envio da imagem para o endpoint da API do backend.
+        *   Exibição dos dados nutricionais textuais brutos retornados pelo backend ou uma mensagem de erro se o processo falhar.
+        *   Um indicador de carregamento é exibido durante o processo de análise.
 
 ## Como Clonar a Aplicação
 
