@@ -30,6 +30,48 @@ O projeto pode ser considerado em estágio de **desenvolvimento ativo / prova de
 *   **Inteligência Artificial:** DeepSeek API (especificamente o modelo `deepseek-reasoner`)
 *   **Variáveis de Ambiente:** dotenv
 
+## Development
+
+This project was developed as a web application to extract nutritional information from food labels or nutritional tables using AI. The development process focused on creating a robust backend to handle image processing and AI integration, and a user-friendly frontend for image uploads and results display.
+
+The application follows a client-server architecture:
+
+*   **Backend:** Developed with Node.js and Express.js, the backend is responsible for receiving image uploads, processing them (resizing and compressing using the Sharp library), and interacting with the DeepSeek AI API (using Axios for API calls) to extract nutritional data. Environment variables are managed using `dotenv`.
+*   **Frontend:** Built with React (bootstrapped with Create React App), the frontend provides an interface for users to upload images and view the extracted nutritional information. Key components include `App.js` for the main application structure and `ImageUploader.js` for handling image uploads and displaying results.
+
+The project is currently in an active development/proof-of-concept stage. The core backend functionality for image processing and AI-based data extraction is implemented.
+
+### Implementation Details
+
+The core functionality revolves around processing user-uploaded images of nutritional labels and extracting data using an AI model.
+
+*   **Image Processing:**
+    *   When an image is uploaded via the frontend, it is sent to the backend.
+    *   The backend utilizes the `Sharp` library to:
+        *   Resize the image to a maximum width of 1024 pixels to optimize it for the AI analysis and reduce processing time.
+        *   Compress the image to further reduce file size without significant loss of quality relevant for text extraction.
+    *   Processed images are temporarily stored in the `server/uploads/` directory.
+
+*   **AI Data Extraction:**
+    *   The processed image is then sent to the DeepSeek AI API.
+    *   The specific model used is `deepseek-reasoner`.
+    *   The backend constructs a prompt instructing the AI to analyze the image and extract all nutritional information present, aiming for a comprehensive textual output of the label's contents.
+
+*   **API Endpoints:**
+    *   **Backend (Server):**
+        *   `POST /api/images/upload`: Receives the image from the client, processes it, sends it to the DeepSeek API, and returns the extracted text.
+        *   `GET /api/health`: A health check endpoint to verify that the server is running correctly.
+    *   **Frontend (Client):**
+        *   The client makes a `POST` request to `http://localhost:5555/api/images/upload` (or the configured backend URL) to send the image for analysis. The port `5555` is the default for the backend server.
+
+*   **Frontend Interaction:**
+    *   The `ImageUploader.js` component in the React frontend handles:
+        *   Image selection (drag-and-drop or file dialog).
+        *   Displaying an image preview.
+        *   Sending the image to the backend API endpoint.
+        *   Displaying the raw textual nutritional data returned by the backend or an error message if the process fails.
+        *   A loading indicator is shown during the analysis process.
+
 ## Como Clonar a Aplicação
 
 Siga os passos abaixo para clonar o repositório da aplicação.
